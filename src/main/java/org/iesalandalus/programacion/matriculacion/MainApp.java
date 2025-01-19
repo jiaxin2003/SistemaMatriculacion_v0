@@ -267,9 +267,7 @@ public class MainApp {
 
     private static void mostrarMatriculas() {
         try {
-            if (Matriculas.getTamano() < 0) {
                 System.out.println(Arrays.toString(matriculas.get()));
-            }
         } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
             System.out.println("No hay Matrículas registradas.");
         }
