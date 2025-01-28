@@ -20,7 +20,7 @@ public class CiclosFormativos {
         this.coleccionCiclosFormativos = new CicloFormativo[capacidad];
     }
 
-    public void insertar(CicloFormativo cicloFormativo)throws OperationNotSupportedException {
+    public void insertar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         if (cicloFormativo == null) {
             throw new NullPointerException("ERROR: No se puede insertar un ciclo formativo nulo.");
         }
@@ -41,11 +41,10 @@ public class CiclosFormativos {
         int indice = buscarIndice(cicloFormativo);
         if (indice == -1) {
             throw new OperationNotSupportedException("ERROR: No existe ningún ciclo formativo como el indicado.");
-        }else{
-        desplazarUnaPosicionHaciaIzquierda(indice);
+        } else {
+            desplazarUnaPosicionHaciaIzquierda(indice);
         }
     }
-
 
 
     private int buscarIndice(CicloFormativo cicloFormativo) {
@@ -59,6 +58,7 @@ public class CiclosFormativos {
         }
         return -1;
     }
+
     public CicloFormativo buscar(CicloFormativo cicloFormativo) {
         if (cicloFormativo == null) {
             throw new NullPointerException("ERROR: El ciclo formativo no puede ser nulo.");
@@ -71,15 +71,15 @@ public class CiclosFormativos {
     }
 
     private void desplazarUnaPosicionHaciaIzquierda(int indice) {
-            coleccionCiclosFormativos[indice] = null;
-            int i;
-            for (i = indice; !tamanoSuperado(i); i++) {
-                if (i<getTamano()-1) {
-                    coleccionCiclosFormativos[i] = coleccionCiclosFormativos[i + 1];
-                }
+        coleccionCiclosFormativos[indice] = null;
+        int i;
+        for (i = indice; !tamanoSuperado(i); i++) {
+            if (i < getTamano() - 1) {
+                coleccionCiclosFormativos[i] = coleccionCiclosFormativos[i + 1];
             }
-            tamano--;
         }
+        tamano--;
+    }
 
     private boolean tamanoSuperado(int i) {
         return i >= getTamano();
