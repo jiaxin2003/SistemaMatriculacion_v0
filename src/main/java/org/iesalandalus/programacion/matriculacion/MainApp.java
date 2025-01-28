@@ -117,9 +117,11 @@ public class MainApp {
 
     private static void buscarAlumno() {
         try {
-            Alumno alumno = Consola.getAlumnoPorDni();
-            alumnos.buscar(alumno);
-            System.out.println("Alumno encontrado.");
+            Alumno alumno = alumnos.buscar(Consola.getAlumnoPorDni());
+            if (alumno == null) {
+                System.out.println("Alumno no encontrado.");
+            }
+            System.out.println(alumno);
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar el alumno.");
         }
@@ -156,9 +158,11 @@ public class MainApp {
 
     private static void buscarAsignatura() {
         try {
-            Asignatura asignatura = Consola.getAsignaturaPorCodigo();
-            asignaturas.buscar(asignatura);
-            System.out.println("Asignatura encontrada.");
+            Asignatura asignatura = asignaturas.buscar(Consola.getAsignaturaPorCodigo());
+            if (asignatura == null) {
+                System.out.println("Asignatura no encontrada.");
+            }
+            System.out.println(asignatura);
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar la asignatura.");
         }
@@ -198,9 +202,11 @@ public class MainApp {
 
     private static void buscarCicloFormativo() {
         try {
-            CicloFormativo ciclo = Consola.getCicloPorCodigo();
-            CicloFormativo encontrado = ciclosFormativos.buscar(ciclo);
-            System.out.println(encontrado != null ? encontrado : "Ciclo formativo no encontrado.");
+            CicloFormativo ciclo = ciclosFormativos.buscar(Consola.getCicloPorCodigo());
+            if (ciclo == null) {
+                System.out.println("Ciclo formativo no encontrado.");
+            }
+            System.out.println(ciclo);
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar el ciclo formativo.");
         }
@@ -237,9 +243,11 @@ public class MainApp {
 
     private static void buscarMatricula() {
         try {
-            Matricula matricula = Consola.getMatriculaPorIdentificador();
-            Matricula encontrada = matriculas.buscar(matricula);
-            System.out.println(encontrada != null ? encontrada : "Matrícula no encontrada.");
+            Matricula matricula = matriculas.buscar(Consola.getMatriculaPorIdentificador());
+            if (matricula == null) {
+                System.out.println("Matrícula no encontrada.");
+            }
+            System.out.println(matricula);
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar la matrícula.");
         }
