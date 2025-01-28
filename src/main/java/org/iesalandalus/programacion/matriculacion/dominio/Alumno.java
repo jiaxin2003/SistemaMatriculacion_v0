@@ -23,7 +23,7 @@ public class Alumno {
     private final int MIN_EDAD_ALUMNO = 16;
 
 
-    public Alumno(String nombre, String dni, String correo, String telefono, LocalDate fechaNacimiento) {
+    public Alumno(String nombre, String dni, String telefono, String correo, LocalDate fechaNacimiento) {
         setNombre(nombre);
         setDni(dni);
         setTelefono(telefono);

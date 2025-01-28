@@ -57,7 +57,7 @@ public class Consola {
             String fechaIntroducida = ("Fecha de nacimiento: ");
             fechaNacimiento = leerFecha(fechaIntroducida);
         } while (dni.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || email.isEmpty());
-        return new Alumno(nombre, dni, email, telefono, fechaNacimiento);
+        return new Alumno(nombre, dni, telefono, email, fechaNacimiento);
     }
 
     public static LocalDate leerFecha(String fechaIntroducida) {
@@ -140,7 +140,6 @@ public class Consola {
     public static void mostrarCiclosFormativos(CiclosFormativos ciclosFormativos) {
         System.out.println(ciclosFormativos.toString());
     }
-
 
 
     public static CicloFormativo getCicloPorCodigo() {
@@ -247,7 +246,7 @@ public class Consola {
         return false;
     }
 
-    public static Matricula leerMatricula(Alumnos alumnos, Asignaturas asignaturas)throws OperationNotSupportedException {
+    public static Matricula leerMatricula(Alumnos alumnos, Asignaturas asignaturas) throws OperationNotSupportedException {
         int idMatricula;
         String cursoAcademico;
         LocalDate fechaMatriculacion;
