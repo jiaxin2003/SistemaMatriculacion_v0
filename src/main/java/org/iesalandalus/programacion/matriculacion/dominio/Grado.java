@@ -13,7 +13,17 @@ public enum Grado {
 
 
     public String imprimir() {
-        return cadenaAMostrar;
+        int digito;
+        if (this == GDCFGB) {
+            digito = 1;
+        } else if (this == GDCFGM) {
+            digito = 2;
+        } else if (this == GDCFGS) {
+            digito = 3;
+        }else {
+            digito = 0;
+        }
+        return digito + ".-" + cadenaAMostrar;
     }
 
     @Override

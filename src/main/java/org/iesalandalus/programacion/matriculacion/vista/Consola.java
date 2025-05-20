@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
-import java.util.Objects;
 
 
 public class Consola {
@@ -94,7 +93,7 @@ public class Consola {
 
         } while (dni == null || dni.isEmpty());
         try {
-            alumno = new Alumno(nombre, dni, telefono, correo, fechaNacimiento);
+            alumno = new Alumno(nombre, dni, correo, telefono, fechaNacimiento);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -186,7 +185,7 @@ public class Consola {
         return Curso.values()[opcion];
     }
 
-    public static Asignatura leerAsignatura(CiclosFormativos ciclosFormativos) {
+    public static Asignatura leerAsignatura(CicloFormativo ciclosFormativos) {
 
         String codigo;
         String nombre;
@@ -194,7 +193,7 @@ public class Consola {
         int horasDesdoble;
         Curso curso;
         EspecialidadProfesorado especialidadProfesorado;
-        CicloFormativo cicloFormativos;
+
 
         do {
             System.out.println("Introduce los datos de la asignatura");
@@ -209,11 +208,11 @@ public class Consola {
 
             curso = leerCurso();
             especialidadProfesorado = leerEspecialidadProfesorado();
-            cicloFormativos = leerCicloFormativo();
 
-        } while (codigo.isEmpty() || nombre.isEmpty() || horas <= 0 || horasDesdoble <= 0 || curso == null || especialidadProfesorado == null || cicloFormativos == null);
 
-        return new Asignatura(codigo, nombre, horas, curso, horasDesdoble, especialidadProfesorado, cicloFormativos);
+        } while (codigo.isEmpty() || nombre.isEmpty() || horas <= 0 || horasDesdoble <= 0 || curso == null || especialidadProfesorado == null || ciclosFormativos==null);
+
+        return new Asignatura(codigo, nombre, horas, curso, horasDesdoble, especialidadProfesorado,ciclosFormativos);
     }
 
     public static Asignatura getAsignaturaPorCodigo() {
@@ -246,7 +245,7 @@ public class Consola {
         return false;
     }
 
-    public static Matricula leerMatricula(Alumnos alumnos, Asignaturas asignaturas) throws OperationNotSupportedException {
+    public static Matricula leerMatricula(Alumno alumnos, Asignaturas asignaturas) throws OperationNotSupportedException {
         int idMatricula;
         String cursoAcademico;
         LocalDate fechaMatriculacion;
@@ -261,12 +260,10 @@ public class Consola {
             System.out.println("Curso Academico: ");
             cursoAcademico = Entrada.cadena();
             fechaMatriculacion = leerFecha("Fecha Matriculacion: ");
-            alumno = leerAlumno();
-            alumno = alumnos.buscar(alumno);
 
-        } while (alumno == null || idMatricula < 0 || cursoAcademico.isEmpty() || fechaMatriculacion == null);
+        } while (alumnos == null || idMatricula < 0 || cursoAcademico.isEmpty() || fechaMatriculacion == null);
 
-        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, asignaturas.get());
+        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumnos, new Asignatura[]{});
     }
 
     public static Matricula getMatriculaPorIdentificador() throws OperationNotSupportedException {

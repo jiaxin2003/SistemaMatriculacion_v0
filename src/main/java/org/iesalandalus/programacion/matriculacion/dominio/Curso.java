@@ -10,7 +10,15 @@ public enum Curso {
     }
     public String imprimir()
     {
-        return cadenaAMostrar;
+        int digito;
+        if (this == PRIMERO) {
+            digito = 1;
+        } else if (this == SEGUNDO) {
+            digito = 2;
+        } else {
+            digito = 3;
+        }
+        return digito + ".-" + cadenaAMostrar;
     }
 
     @Override

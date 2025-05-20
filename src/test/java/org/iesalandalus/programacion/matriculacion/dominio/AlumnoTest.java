@@ -86,7 +86,7 @@ public class AlumnoTest {
             fail(NOMBRE_INCORRECTO);
         } catch (NullPointerException e) {
             assertEquals(ERROR_NOMBRE_NULO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
-            assertEquals(null, alumno, OBJETO_DEBERIA_SER_NULO);
+            assertEquals(alumno, OBJETO_DEBERIA_SER_NULO);
         } catch (Exception e) {
             fail(TIPO_EXCEPCION_NO_CORRECTA);
         }

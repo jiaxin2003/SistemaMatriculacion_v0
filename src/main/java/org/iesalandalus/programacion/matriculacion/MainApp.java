@@ -147,7 +147,8 @@ public class MainApp {
 
     private static void insertarAsignatura() {
         try {
-            Asignatura asignatura = Consola.leerAsignatura(ciclosFormativos);
+            CicloFormativo ciclo = Consola.getCicloPorCodigo();
+            Asignatura asignatura = Consola.leerAsignatura(ciclo);
             asignaturas.insertar(asignatura);
             System.out.println("Asignatura insertada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException e) {
@@ -226,14 +227,15 @@ public class MainApp {
         if (ciclosFormativos.getTamano() < 0 || ciclosFormativos.getTamano() == ciclosFormativos.getCapacidad()) {
             System.out.println("No hay ciclos formativos registrados.");
         } else {
-            System.out.println("Ciclos Formativos :");
-            Arrays.toString(ciclosFormativos.get());
+            System.out.println("Ciclos Formativos :" + Arrays.toString(ciclosFormativos.get()));
         }
     }
 
     private static void insertarMatricula() {
         try {
-            Matricula matricula = Consola.leerMatricula(alumnos, asignaturas);
+            Alumno alumno= Consola.getAlumnoPorDni();
+            alumno = alumnos.buscar(alumno);
+            Matricula matricula = Consola.leerMatricula(alumno, asignaturas);
             matriculas.insertar(matricula);
             System.out.println("Matrícula insertada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {

@@ -47,7 +47,7 @@ public class Matricula {
         setFechaMatriculacion(matricula.getFechaMatriculacion());
         setAlumno(matricula.getAlumno());
         setColeccionAsignaturas(matricula.getColeccionAsignaturas());
-        if (matricula.getFechaAnulacion() != null){
+        if (matricula.getFechaAnulacion() != null) {
             setFechaAnulacion(matricula.getFechaAnulacion());
         }
     }
@@ -57,7 +57,7 @@ public class Matricula {
         int horasMatriculadas = 0;
         for (Asignatura coleccionAsignatura : asignaturasMatricula) {
             if (coleccionAsignatura != null) {
-            horasMatriculadas += coleccionAsignatura.getHorasAnuales();
+                horasMatriculadas += coleccionAsignatura.getHorasAnuales();
             }
         }
         return horasMatriculadas > MAXIMO_NUMERO_HORAS_MATRICULA;
@@ -121,11 +121,11 @@ public class Matricula {
         return cursoAcademico;
     }
 
-    public void setCursoAcademico(String cursoAcademico) {
+    private void setCursoAcademico(String cursoAcademico) {
         if (cursoAcademico == null) {
             throw new NullPointerException("ERROR: El curso académico de una matrícula no puede ser nulo.");
         }
-        if (cursoAcademico.isBlank() || cursoAcademico.isEmpty()) {
+        if (cursoAcademico.isBlank()) {
             throw new IllegalArgumentException("ERROR: El curso académico de una matrícula no puede estar vacío.");
         }
         if (!cursoAcademico.matches(ER_CURSO_ACADEMICO)) {
@@ -138,7 +138,7 @@ public class Matricula {
         return idMatricula;
     }
 
-    public void setIdMatricula(int idMatricula) {
+    private void setIdMatricula(int idMatricula) {
         if (idMatricula < 0) {
             throw new IllegalArgumentException("El id de la matricula no puede ser negativo.");
         }
@@ -149,8 +149,8 @@ public class Matricula {
         return coleccionAsignaturas;
     }
 
-    public void setColeccionAsignaturas(Asignatura[] coleccionAsignaturas) throws OperationNotSupportedException {
-        if (coleccionAsignaturas==null){
+    private void setColeccionAsignaturas(Asignatura[] coleccionAsignaturas) throws OperationNotSupportedException {
+        if (coleccionAsignaturas == null) {
             throw new NullPointerException("ERROR: La colección de asignaturas de una matrícula no puede ser nula.");
         }
         if (coleccionAsignaturas.length > MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA) {
@@ -166,7 +166,10 @@ public class Matricula {
         return alumno;
     }
 
-    public void setAlumno(Alumno alumno) {
+    private void setAlumno(Alumno alumno) {
+        if (alumno == null) {
+            throw new NullPointerException("ERROR: El alumno de una matrícula no puede ser nulo.");
+        }
         this.alumno = alumno;
     }
 
@@ -192,6 +195,8 @@ public class Matricula {
                 ", coleccionAsignaturas=" + Arrays.toString(coleccionAsignaturas) +
                 ", alumno=" + alumno.imprimir();
     }
+
+
 }
 
 

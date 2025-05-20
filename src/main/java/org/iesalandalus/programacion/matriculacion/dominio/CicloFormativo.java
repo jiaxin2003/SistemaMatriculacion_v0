@@ -82,7 +82,7 @@ public class CicloFormativo {
         return codigo;
     }
 
-    private void setCodigo(int codigo) {
+    public void setCodigo(int codigo) {
         if (codigo < 1000 || codigo > 9999)
             throw new IllegalArgumentException("ERROR: El código de un ciclo formativo debe ser un número de 4 dígitos.");
         this.codigo = codigo;

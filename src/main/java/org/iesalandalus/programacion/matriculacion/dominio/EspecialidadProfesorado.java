@@ -10,7 +10,17 @@ public enum EspecialidadProfesorado {
     }
 
     public String imprimir() {
-        return cadenaAMostrar;
+        int digito;
+        if (this == INFORMATICA) {
+            digito = 1;
+        } else if (this == FOL) {
+            digito = 2;
+        } else if(this == SISTEMAS) {
+            digito = 3;
+        }else {
+            digito = 0;
+        }
+        return digito + ".-" + cadenaAMostrar;
     }
 
     @Override
