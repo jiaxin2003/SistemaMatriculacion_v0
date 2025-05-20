@@ -27,18 +27,18 @@ public class MainApp {
         asignaturas = new Asignaturas(CAPACIDAD);
         ciclosFormativos = new CiclosFormativos(CAPACIDAD);
         matriculas = new Matriculas(CAPACIDAD);
-        try {
-            Alumno alumno1 = new Alumno("jasdfasdf", "00000000T", "asdasdf@asfasdf.com", "633333222", LocalDate.of(2000, 1, 1));
-            alumnos.insertar(alumno1);
-            CicloFormativo cicloFormativo1 = new CicloFormativo(1333, "Informatica", Grado.GDCFGB, "Informatica", 2000);
-            ciclosFormativos.insertar(cicloFormativo1);
-            Asignatura asignatura1 = new Asignatura("1374", "Informatica", 250, Curso.PRIMERO, 3, EspecialidadProfesorado.INFORMATICA, cicloFormativo1);
-            asignaturas.insertar(asignatura1);
-            Matricula matricula1 = new Matricula(9874, "24-25",LocalDate.now(), alumno1, new Asignatura[]{asignatura1});
-            matriculas.insertar(matricula1);
-        } catch (Exception e) {
-            e.getMessage();
-        }
+//        try {
+//            Alumno alumno1 = new Alumno("jasdfasdf", "00000000T", "asdasdf@asfasdf.com", "633333222", LocalDate.of(2000, 1, 1));
+//            alumnos.insertar(alumno1);
+//            CicloFormativo cicloFormativo1 = new CicloFormativo(1333, "Informatica", Grado.GDCFGB, "Informatica", 2000);
+//            ciclosFormativos.insertar(cicloFormativo1);
+//            Asignatura asignatura1 = new Asignatura("1374", "Informatica", 250, Curso.PRIMERO, 3, EspecialidadProfesorado.INFORMATICA, cicloFormativo1);
+//            asignaturas.insertar(asignatura1);
+//            Matricula matricula1 = new Matricula(9874, "24-25",LocalDate.now(), alumno1, new Asignatura[]{asignatura1});
+//            matriculas.insertar(matricula1);
+//        } catch (Exception e) {
+//            e.getMessage();
+//        }
 
 
         Opcion opcion;
