@@ -56,7 +56,7 @@ public class Consola {
             String fechaIntroducida = ("Fecha de nacimiento: ");
             fechaNacimiento = leerFecha(fechaIntroducida);
         } while (dni.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || email.isEmpty());
-        return new Alumno(nombre, dni, email, telefono,fechaNacimiento);
+        return new Alumno(nombre, dni, email, telefono, fechaNacimiento);
     }
 
     public static LocalDate leerFecha(String fechaIntroducida) {
@@ -210,9 +210,9 @@ public class Consola {
             especialidadProfesorado = leerEspecialidadProfesorado();
 
 
-        } while (codigo.isEmpty() || nombre.isEmpty() || horas <= 0 || horasDesdoble <= 0 || curso == null || especialidadProfesorado == null || ciclosFormativos==null);
+        } while (codigo.isEmpty() || nombre.isEmpty() || horas <= 0 || horasDesdoble <= 0 || curso == null || especialidadProfesorado == null || ciclosFormativos == null);
 
-        return new Asignatura(codigo, nombre, horas, curso, horasDesdoble, especialidadProfesorado,ciclosFormativos);
+        return new Asignatura(codigo, nombre, horas, curso, horasDesdoble, especialidadProfesorado, ciclosFormativos);
     }
 
     public static Asignatura getAsignaturaPorCodigo() {
@@ -236,7 +236,7 @@ public class Consola {
         System.out.println(Arrays.toString(asignaturas.get()));
     }
 
-    private boolean asignaturaYaMatriculada(Asignatura[] asignaturasMatricula, Asignatura asignatura) {
+    private static boolean asignaturaYaMatriculada(Asignatura[] asignaturasMatricula, Asignatura asignatura) {
         for (Asignatura coleccionAsignatura : asignaturasMatricula) {
             if (coleccionAsignatura.getCodigo().equals(asignatura.getCodigo())) {
                 return true;
@@ -261,17 +261,36 @@ public class Consola {
             cursoAcademico = Entrada.cadena();
             fechaMatriculacion = leerFecha("Fecha Matriculacion: ");
 
-        } while (alumnos == null || idMatricula < 0 || cursoAcademico.isEmpty() || fechaMatriculacion == null);
 
-        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumnos, new Asignatura[]{});
+        }
+        while (alumnos == null || idMatricula < 0 || cursoAcademico.isEmpty() || fechaMatriculacion == null);
+        mostrarAsignaturas(asignaturas);
+        System.out.println("Introduzca el codigo de la asignatura: ");
+        String codigoAsignatura = Entrada.cadena();
+        CicloFormativo cicloFormativo1 = new CicloFormativo(1333, "Informatica", Grado.GDCFGB, "Informatica", 1000);
+        Asignatura asignaturaBuscar = new Asignatura(codigoAsignatura, "Informatica", 250, Curso.PRIMERO, 3, EspecialidadProfesorado.INFORMATICA, cicloFormativo1);
+        Asignatura asignatura = asignaturas.buscar(asignaturaBuscar);
+        Asignatura[] coleccionAsignatura = new Asignatura[10];
+        int contadorAsignaturas = 0;
+        if (asignatura == null) {
+            System.out.println("La asignatura introducida no existe");
+        }else {
+                coleccionAsignatura[contadorAsignaturas] = asignatura;
+                contadorAsignaturas++;
+        }
+        Asignatura[] asignaturasFinales = new Asignatura[contadorAsignaturas];
+        for (int i = 0; i < contadorAsignaturas; i++) {
+            asignaturasFinales[i] = coleccionAsignatura[i];
+        }
+        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumnos, asignaturasFinales);
     }
 
     public static Matricula getMatriculaPorIdentificador() throws OperationNotSupportedException {
         Matricula matricula = null;
         int idMatricula = 2009;
-        String cursoAcademico = "24/25";
-        LocalDate fechaMatriculacion = LocalDate.of(2009, 1, 1);
-        Alumno alumno = new Alumno("Pepe Perez", "12345678F", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
+        String cursoAcademico = "24-25";
+        LocalDate fechaMatriculacion = LocalDate.now();
+        Alumno alumno = new Alumno("Pepe Perez", "87654321x","PepePerez@gmail.com","666555444",LocalDate.of(2000, 12, 12));
         Asignatura[] coleccionAsignaturas = new Asignatura[10];
 
 

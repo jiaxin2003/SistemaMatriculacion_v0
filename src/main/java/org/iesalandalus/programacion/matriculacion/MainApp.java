@@ -27,6 +27,18 @@ public class MainApp {
         asignaturas = new Asignaturas(CAPACIDAD);
         ciclosFormativos = new CiclosFormativos(CAPACIDAD);
         matriculas = new Matriculas(CAPACIDAD);
+        try {
+            Alumno alumno1 = new Alumno("jasdfasdf", "00000000T", "asdasdf@asfasdf.com", "633333222", LocalDate.of(2000, 1, 1));
+            alumnos.insertar(alumno1);
+            CicloFormativo cicloFormativo1 = new CicloFormativo(1333, "Informatica", Grado.GDCFGB, "Informatica", 2000);
+            ciclosFormativos.insertar(cicloFormativo1);
+            Asignatura asignatura1 = new Asignatura("1374", "Informatica", 250, Curso.PRIMERO, 3, EspecialidadProfesorado.INFORMATICA, cicloFormativo1);
+            asignaturas.insertar(asignatura1);
+            Matricula matricula1 = new Matricula(9874, "24-25",LocalDate.now(), alumno1, new Asignatura[]{asignatura1});
+            matriculas.insertar(matricula1);
+        } catch (Exception e) {
+            e.getMessage();
+        }
 
 
         Opcion opcion;
@@ -112,6 +124,7 @@ public class MainApp {
             System.out.println("Alumno insertado correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo insertar el alumno.");
+            e.getMessage();
         }
     }
 
@@ -124,6 +137,7 @@ public class MainApp {
             System.out.println(alumno);
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar el alumno.");
+            e.getMessage();
         }
     }
 
@@ -134,14 +148,21 @@ public class MainApp {
             System.out.println("Alumno borrado correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
             System.out.println("ERROR: No se pudo borrar el alumno.");
+            e.getMessage();
         }
     }
 
     private static void mostrarAlumnos() {
-        if (alumnos.getTamano() == 0 || alumnos.getTamano() == alumnos.getCapacidad()) {
-            System.out.println("No hay alumnos registrados.");
-        } else System.out.println("Alumnos:" + Arrays.toString(alumnos.get()));
+        try {
 
+
+            if (alumnos.getTamano() == 0 ) {
+                System.out.println("No hay alumnos registrados.");
+            } else System.out.println("Alumnos:" + Arrays.toString(alumnos.get()));
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println("ERROR: No se pudo mostrar los alumnos.");
+            e.getMessage();
+        }
     }
 
 
@@ -153,6 +174,7 @@ public class MainApp {
             System.out.println("Asignatura insertada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo insertar la asignatura.");
+            e.getMessage();
         }
     }
 
@@ -166,6 +188,7 @@ public class MainApp {
             System.out.println(asignatura);
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar la asignatura.");
+            e.getMessage();
         }
     }
 
@@ -176,18 +199,21 @@ public class MainApp {
             System.out.println("Asignatura borrada correctamente.");
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo borrar la asignatura.");
+            e.getMessage();
         }
     }
 
 
     private static void mostrarAsignaturas() {
-        if (asignaturas.getTamano() < 0) {
-            System.out.println("No hay asignaturas registradas.");
-        }
-        if (asignaturas.getTamano() == asignaturas.getCapacidad())
-            System.out.println("No esta esa asignatura.");
-        else {
-            System.out.println(Arrays.toString(asignaturas.get()));
+        try {
+            if (asignaturas.getTamano() == 0) {
+                System.out.println("No hay asignaturas registradas.");
+            } else {
+                System.out.println(Arrays.toString(asignaturas.get()));
+            }
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println("ERROR: No se pudo mostrar las asignaturas.");
+            e.getMessage();
         }
     }
 
@@ -198,6 +224,7 @@ public class MainApp {
             System.out.println("Ciclo formativo insertado correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
             System.out.println("ERROR: No se pudo insertar el ciclo formativo.");
+            e.getMessage();
         }
     }
 
@@ -210,6 +237,7 @@ public class MainApp {
             System.out.println(ciclo);
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar el ciclo formativo.");
+            e.getMessage();
         }
     }
 
@@ -220,93 +248,116 @@ public class MainApp {
             System.out.println("Ciclo formativo borrado correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
             System.out.println("ERROR: No se pudo borrar el ciclo formativo.");
+            e.getMessage();
         }
     }
 
     private static void mostrarCiclosFormativos() {
-        if (ciclosFormativos.getTamano() < 0 || ciclosFormativos.getTamano() == ciclosFormativos.getCapacidad()) {
-            System.out.println("No hay ciclos formativos registrados.");
-        } else {
-            System.out.println("Ciclos Formativos :" + Arrays.toString(ciclosFormativos.get()));
+        try {
+            if (ciclosFormativos.getTamano() == 0) {
+                System.out.println("No hay ciclos formativos registrados.");
+            } else {
+                System.out.println("Ciclos Formativos :" + Arrays.toString(ciclosFormativos.get()));
+            }
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println("ERROR: No se pudo mostrar los ciclos formativos.");
+            e.getMessage();
         }
     }
 
     private static void insertarMatricula() {
         try {
-            Alumno alumno= Consola.getAlumnoPorDni();
+            Alumno alumno = Consola.getAlumnoPorDni();
             alumno = alumnos.buscar(alumno);
             Matricula matricula = Consola.leerMatricula(alumno, asignaturas);
             matriculas.insertar(matricula);
             System.out.println("Matrícula insertada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
             System.out.println("ERROR: No se pudo insertar la matrícula.");
+            e.getMessage();
         }
     }
 
     private static void buscarMatricula() {
         try {
-            Matricula matricula = matriculas.buscar(Consola.getMatriculaPorIdentificador());
+            Matricula matriculaBuscar = Consola.getMatriculaPorIdentificador();
+            Matricula matricula = matriculas.buscar(matriculaBuscar);
             if (matricula == null) {
                 System.out.println("Matrícula no encontrada.");
             }
             System.out.println(matricula);
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo buscar la matrícula.");
+            e.getMessage();
         }
     }
 
     private static void anularMatricula() {
         try {
             Matricula matricula = Consola.getMatriculaPorIdentificador();
-            matriculas.borrar(matricula);
-            if (matricula.getFechaAnulacion() != null) {
+            Matricula matriculaEncontrada = matriculas.buscar(matricula);
+            if (matriculaEncontrada == null) {
+                System.out.println("Matrícula no encontrada.");
+
+            }else if (matriculaEncontrada.getFechaAnulacion() != null) {
                 System.out.println("Matrícula ya anulada.");
-                return;
             } else {
                 do {
-                    System.out.println("Introduce la fecha de anulación de la matrícula (dd/mm/aaaa).");
-                    String fechaAnulacion = Entrada.cadena();
-                    matricula.setFechaAnulacion(LocalDate.parse(fechaAnulacion));
+                    matriculas.borrar(matriculaEncontrada);
+                    matricula.setFechaAnulacion(LocalDate.now());
                 } while (matricula.getFechaAnulacion() == null);
             }
             System.out.println("Matrícula anulada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
+            e.getMessage();
             System.out.println("ERROR: No se pudo anular la matrícula.");
         }
     }
 
     private static void mostrarMatriculas() {
         try {
-                System.out.println(Arrays.toString(matriculas.get()));
+            if (matriculas.getTamano() == 0) {
+                System.out.println("No hay matrículas registradas.");
+                return;
+            }
+            System.out.println(Arrays.toString(matriculas.get()));
         } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
             System.out.println("No hay Matrículas registradas.");
+            e.getMessage();
         }
 
     }
 
     private static void mostrarMatriculasPorAlumno() {
         try {
-            Consola.getAlumnoPorDni();
-            System.out.println(Arrays.toString(matriculas.get()));
+            Alumno alumno = Consola.getAlumnoPorDni();
+            alumno = alumnos.buscar(alumno);
+            System.out.println(Arrays.toString(matriculas.get(alumno)));
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por alumno.");
+            e.getMessage();
         }
     }
 
     private static void mostrarMatriculasPorCiclo() {
         try {
-            Consola.getCicloPorCodigo();
-            System.out.println(Arrays.toString(matriculas.get()));
+            CicloFormativo ciclo = Consola.getCicloPorCodigo();
+            CicloFormativo cicloFormativo = ciclosFormativos.buscar(ciclo);
+            System.out.println(Arrays.toString(matriculas.get(cicloFormativo)));
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por ciclo.");
+            e.getMessage();
         }
     }
 
     private static void mostrarMatriculasPorCurso() {
         try {
-            System.out.println(Arrays.toString(matriculas.get()));
+            System.out.println("Introduce el curso de la matrícula.");
+            System.out.println("El formato tiene que ser 24-25");
+            String curso = Entrada.cadena();
+            System.out.println(Arrays.toString(matriculas.get(curso)));
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por curso.");
+            e.getMessage();
         }
     }
 

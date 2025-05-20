@@ -1,10 +1,12 @@
 package org.iesalandalus.programacion.matriculacion.negocio;
 
 import org.iesalandalus.programacion.matriculacion.dominio.Alumno;
+import org.iesalandalus.programacion.matriculacion.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.dominio.CicloFormativo;
 import org.iesalandalus.programacion.matriculacion.dominio.Matricula;
 
 import javax.naming.OperationNotSupportedException;
+import java.time.LocalDate;
 
 public class Matriculas {
     private static int capacidad;
@@ -66,7 +68,8 @@ public class Matriculas {
         if (indice == -1) {
             throw new OperationNotSupportedException("ERROR: No existe ninguna matrícula como la indicada.");
         }
-        desplazarUnaPosicionHaciaIzquierda(indice);
+        matricula.setFechaAnulacion(LocalDate.now());
+
     }
 
     public Matricula[] get() throws OperationNotSupportedException {
@@ -82,12 +85,8 @@ public class Matriculas {
     }
 
     private void desplazarUnaPosicionHaciaIzquierda(int indice) {
-        coleccionMatriculas[indice] = null;
-        int i;
-        for (i = indice; !tamanoSuperado(i); i++) {
-            if (i < getTamano() - 1) {
-                coleccionMatriculas[i] = coleccionMatriculas[i + 1];
-            }
+        for (int i = indice; i < tamano - 1; i++) {
+            coleccionMatriculas[i] = coleccionMatriculas[i + 1];
         }
         tamano--;
     }
@@ -113,7 +112,9 @@ public class Matriculas {
     public Matricula[] get(Alumno alumno) throws OperationNotSupportedException {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(coleccionMatriculas[i]);
+            if (coleccionMatriculas[i].getAlumno().equals(alumno)) {
+                copia[i] = new Matricula(coleccionMatriculas[i]);
+            }
         }
         return copia;
     }
@@ -121,17 +122,35 @@ public class Matriculas {
     public Matricula[] get(String cursoAcademico) throws OperationNotSupportedException {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(coleccionMatriculas[i]);
+            if (coleccionMatriculas[i].getCursoAcademico().equals(cursoAcademico)) {
+                copia[i] = new Matricula(coleccionMatriculas[i]);
+            }
         }
         return copia;
     }
 
     public Matricula[] get(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         Matricula[] copia = new Matricula[tamano];
+        int contador = 0;
+
         for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(coleccionMatriculas[i]);
+            Matricula matricula = coleccionMatriculas[i];
+            Asignatura[] asignaturas = matricula.getColeccionAsignaturas();
+
+            for (Asignatura asignatura : asignaturas) {
+                if (asignatura != null && asignatura.getCicloFormativo().equals(cicloFormativo)) {
+                    copia[contador++] = new Matricula(matricula);
+                    break;
+                }
+            }
         }
-        return copia;
+
+        Matricula[] resultado = new Matricula[contador];
+        for (int i = 0; i < contador; i++) {
+            resultado[i] = copia[i];
+        }
+
+        return resultado;
     }
 
 

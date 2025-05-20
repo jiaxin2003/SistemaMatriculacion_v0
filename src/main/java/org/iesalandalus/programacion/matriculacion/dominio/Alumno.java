@@ -166,7 +166,7 @@ public class Alumno {
         } else if (!dni.matches(ER_DNI)) {
             throw new IllegalArgumentException("ERROR: El dni del alumno no tiene un formato válido.");
         }
-        if (!comprobarLetraDni(dni)) {
+        if (!comprobarLetraDni(dni.toUpperCase())) {
             throw new IllegalArgumentException("ERROR: La letra del dni del alumno no es correcta.");
         }
         this.dni = dni.toUpperCase();
